@@ -1,0 +1,252 @@
+---
+swagger: "2.0"
+info:
+  description: "Sistema de Gestion de Documentos y Procedimientos Administrativos Electrónicos"
+  version: "1.0.0"
+  title: "Mara API"
+host: "localhost:8080"
+basePath: "/v1"
+schemes:
+- "http"
+produces:
+- "application/json"
+
+paths:
+
+  /users/{id}/tods:
+    get:
+      tags:
+      - "TOD"
+      summary: "Tipos de objetos documentales"
+      description: "Listado de tipos de objetos documentales"
+      operationId: "todsGet"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del usuario."
+          required: true
+          type: "string"
+        - in: "query"
+          name: "page"
+          description: "Página a mostrar"
+          required: true
+          type: "integer"
+        - in: "query"
+          name: "limit"
+          description: "Cantidad de tipos de objetos documentales a mostrar"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Listado de tipos de objetos documentales"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/TOD"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "TOD"
+
+  /users/{id}/tods/{id_tods}:
+    get:
+      tags:
+      - "TOD"
+      summary: "Tipo de objeto documental por id"
+      description: "Tipo de objeto documental por id"
+      operationId: "todsIdGet"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "identificador único del usuario."
+        required: true
+        type: "string"
+      - name: "id_tods"
+        in: "path"
+        description: "identificador único del tipo de objeto documental."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Tipo de objeto documental según el id provisto"
+          schema:
+            $ref: "#/definitions/TOD"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "TOD"
+
+  /users/{id}/documents:
+    get:
+      tags:
+      - "Document"
+      summary: "Documentos"
+      description: "Listado de documentos"
+      operationId: "documentsGet"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "identificador único del usuario."
+          required: true
+          type: "string"
+        - in: "query"
+          name: "page"
+          description: "Página a mostrar"
+          required: true
+          type: "integer"
+        - in: "query"
+          name: "limit"
+          description: "Cantidad de documentos a mostrar"
+          required: true
+          type: "integer"
+      responses:
+        200:
+          description: "Listado de documentos"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Document"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "Document"
+
+  /users/{id}/documents/{id_doc}:
+    get:
+      tags:
+      - "Document"
+      summary: "Documentos por id"
+      description: "Documento por id"
+      operationId: "documentsIdGet"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "identificador único del usuario."
+        required: true
+        type: "string"
+      - name: "id_doc"
+        in: "path"
+        description: "identificador único del documento."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Tipo de objeto documental según el id provisto"
+          schema:
+            $ref: "#/definitions/Document"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    x-swagger-router-controller: "Document"
+
+definitions:
+  Hypermedia:
+    type: "object"
+    properties:
+      rel:
+        type: "string"
+        description: "Nombre del recurso con el que se relaciona"
+      href:
+        type: "string"
+        description: "URL de referencia al recurso"
+
+
+  TOD:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        description: "Identificador Unico"
+      name:
+        type: "string"
+        description: "Nombre completo del tipo de objeto documental."
+      identifier:
+        type: "string"
+        description: "Identificador alfabetico del tipo de objeto documental utilizado para conformar el CUDAP"
+      icon:
+        type: "string"
+        description: "url del icono"
+      description:
+        type: "string"
+        description: "Descripcion del tipo de objeto documental."
+      metadata:
+        type: array
+        description: "Listado de metadatos del documento"
+        items:
+          type: "string"
+      links:
+        type: "array"
+        description: "Listado de vínculos a recursos"
+        items:
+          $ref: "#/definitions/Hypermedia"
+
+  Document:
+    type: "object"
+    properties:
+      _id:
+        type: "string"
+        description: "Identificador Unico"
+      name:
+        type: "string"
+        description: "Nombre del documento completo (CUDAP)."
+      icon:
+        type: "string"
+        description: "url del icono"
+      tod:
+        type: object
+        description: "Tipo de objeto documental al que referencia"
+        items:
+           $ref: "#/definitions/TOD"
+      links:
+        type: "array"
+        description: "Listado de vínculos a recursos"
+        items:
+          $ref: "#/definitions/Hypermedia"
+
+
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
