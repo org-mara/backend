@@ -190,26 +190,51 @@ definitions:
   TOD:
     type: "object"
     properties:
-      _id:
+      id:
         type: "string"
-        description: "Identificador Unico"
-      name:
+        description: "Identificador Unico."
+      type:
+        type: "string"
+        descripcion: "Define si es un tipo documental File o Folder"
+      label:
         type: "string"
         description: "Nombre completo del tipo de objeto documental."
       identifier:
         type: "string"
-        description: "Identificador alfabetico del tipo de objeto documental utilizado para conformar el CUDAP"
+        description: "Identificador alfabetico del tipo de objeto documental utilizado para conformar el CUDAP."
       icon:
         type: "string"
-        description: "url del icono"
+        description: "Icono del tipo de objeto documental. Tamaño 16 px"
+      large-icon:
+        type: "string"
+        description: "Icono del tipo de objeto documental. Tamaño 64 px"
       description:
         type: "string"
         description: "Descripcion del tipo de objeto documental."
-      metadata:
+      file-format:
         type: array
-        description: "Listado de metadatos del documento"
+        description: "Listado de formato permitido de archivos adjuntos."
         items:
           type: "string"
+      properties:
+        type: array
+        description: "Listado de metadatos del tipo de objeto documental."
+        items:
+          type: "string"
+      container-type:
+        type: array
+        description: "Listado de tipos de objetos documentales que puede contener si es un Folder."
+        items:
+          type: "string"
+      view-url:
+        type: "string"
+        description: "Url de la vista de un tipo de objeto documental."
+      edit-url:
+        type: "string"
+        description: "Url de edición de datos de la instancia del tipo de objeto documental."
+      new-url:
+        type: "string"
+        description: "Url de creación de una instancia del tipo de objeto documental"
       links:
         type: "array"
         description: "Listado de vínculos a recursos"
@@ -219,7 +244,7 @@ definitions:
   Document:
     type: "object"
     properties:
-      _id:
+      id:
         type: "string"
         description: "Identificador Unico"
       name:
@@ -239,6 +264,44 @@ definitions:
         items:
           $ref: "#/definitions/Hypermedia"
 
+
+Version:
+  type: "object"
+  properties:
+    id:
+      type: "string"
+      description: "Identificador Unico"
+    label:
+      type: "string"
+      description: "Etiqueta de número de version"
+    date:
+      type: "string"
+      description: "Fecha de creación de la version"
+    creator:
+      type: "string"
+      description: "Usuario creador de la version"
+    subject:
+      type: "string"
+      description: "Motivo por el que se creo la version"
+
+  Activity:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Identificador Unico"
+      event-name:
+        type: "string"
+        description: "Nombre de la accion que el usuario realice, por ejemplo visualizar, crear, editar."
+      event-description:
+        type: "string"
+        description: "Descripción de la accion que el usuario realice, por ejemplo Juan creó un item."
+      date:
+        type: "string"
+        description: "Fecha en la que el evento ocurrió."
+      user:
+        type: "string"
+        description: "Usuario que realizó la acción."
 
   Error:
     type: "object"
