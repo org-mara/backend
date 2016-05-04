@@ -5,6 +5,7 @@ info:
   version: "1.0.0"
   title: "Mara API"
 host: "localhost:8080"
+# host: "mara-ws.unc.edu.ar:8080"
 basePath: "/v1"
 schemes:
 - "http"
@@ -13,32 +14,31 @@ produces:
 
 paths:
 
-  /users/{id}/tods:
+
+  # ------------------ TIPOS DE OBJETOS DOCUMENTALES ------------------
+  /tods:
     get:
       tags:
-      - "TOD"
+      - "Tipo Documental"
       summary: "Tipos de objetos documentales"
-      description: "Listado de tipos de objetos documentales"
-      operationId: "todsGet"
+      description: "Listado de los tipos de objetos documentales"
+      operationId: "todGet"
       parameters:
-        - name: "id"
-          in: "path"
-          description: "identificador único del usuario."
-          required: true
-          type: "string"
         - in: "query"
           name: "page"
-          description: "Página a mostrar"
+          description: "Nro de página solicitada"
           required: true
-          type: "integer"
+          type: "number"
+          format: "int32"
         - in: "query"
-          name: "limit"
-          description: "Cantidad de tipos de objetos documentales a mostrar"
+          name: "pageSize"
+          description: "Tamaño de página deseado"
           required: true
-          type: "integer"
+          type: "number"
+          format: "int32"
       responses:
         200:
-          description: "Listado de tipos de objetos documentales"
+          description: "Listado de objetos documentales"
           schema:
             type: "array"
             items:
@@ -57,27 +57,22 @@ paths:
             $ref: "#/definitions/Error"
     x-swagger-router-controller: "TOD"
 
-  /users/{id}/tods/{id_tods}:
+  /tods/{id}:
     get:
       tags:
-      - "TOD"
+      - "Tipo Documental"
       summary: "Tipo de objeto documental por id"
-      description: "Tipo de objeto documental por id"
-      operationId: "todsIdGet"
+      description: "Obtiene un tipo de objeto documental segun el id"
+      operationId: "todIdGet"
       parameters:
       - name: "id"
         in: "path"
-        description: "identificador único del usuario."
-        required: true
-        type: "string"
-      - name: "id_tods"
-        in: "path"
-        description: "identificador único del tipo de objeto documental."
+        description: "Identificador único del tipo de objeto documental."
         required: true
         type: "string"
       responses:
         200:
-          description: "Tipo de objeto documental según el id provisto"
+          description: Tipo de objeto documental según el id provisto"
           schema:
             $ref: "#/definitions/TOD"
         404:
@@ -92,31 +87,61 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
+
+    delete:
+      tags:
+      - "Tipo Documental"
+      summary: "Eliminación de tipo de objeto documental por id"
+      description: "Eliminación de un tipo de objeto documental segun el id"
+      operationId: "todIdDelete"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identificador del tipo de objeto documental."
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Tipo de objeto documental borrado."
+          schema:
+            $ref: "#/definitions/ReturnId"
+        400:
+          description: "Id incorrecto"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+
     x-swagger-router-controller: "TOD"
 
-  /users/{id}/documents:
+
+   # ------------------ DOCUMENTOS ------------------
+  /documents:
     get:
       tags:
-      - "Document"
+      - "Documento"
       summary: "Documentos"
       description: "Listado de documentos"
-      operationId: "documentsGet"
+      operationId: "documentGet"
       parameters:
-        - name: "id"
-          in: "path"
-          description: "identificador único del usuario."
-          required: true
-          type: "string"
         - in: "query"
           name: "page"
-          description: "Página a mostrar"
+          description: "Nro de página solicitada"
           required: true
-          type: "integer"
+          type: "number"
+          format: "int32"
         - in: "query"
-          name: "limit"
-          description: "Cantidad de documentos a mostrar"
+          name: "pageSize"
+          description: "Tamaño de página deseado"
           required: true
-          type: "integer"
+          type: "number"
+          format: "int32"
       responses:
         200:
           description: "Listado de documentos"
@@ -136,29 +161,24 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-    x-swagger-router-controller: "Document"
+    x-swagger-router-controller: "TOD"
 
-  /users/{id}/documents/{id_doc}:
+  /documents/{id}:
     get:
       tags:
-      - "Document"
-      summary: "Documentos por id"
-      description: "Documento por id"
-      operationId: "documentsIdGet"
+      - "Documento"
+      summary: "Documento por id"
+      description: "Obtiene un documento segun el id"
+      operationId: "documentIdGet"
       parameters:
       - name: "id"
         in: "path"
-        description: "identificador único del usuario."
-        required: true
-        type: "string"
-      - name: "id_doc"
-        in: "path"
-        description: "identificador único del documento."
+        description: "Identificador único del documento."
         required: true
         type: "string"
       responses:
         200:
-          description: "Tipo de objeto documental según el id provisto"
+          description: "Documento según el id provisto"
           schema:
             $ref: "#/definitions/Document"
         404:
@@ -173,20 +193,110 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
+
+    delete:
+      tags:
+      - "Documento"
+      summary: "Eliminación de documento por id"
+      description: "Eliminación de un documento segun el id"
+      operationId: "documentIdDelete"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Identificador del documento."
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Documento borrado."
+          schema:
+            $ref: "#/definitions/ReturnId"
+        400:
+          description: "Id incorrecto"
+          schema:
+            $ref: "#/definitions/Error"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+
     x-swagger-router-controller: "Document"
 
+
+  /documents/{id}/versions:
+    get:
+      tags:
+      - "Documento"
+      summary: "Versiones"
+      description: "Lista de versiones asociadas al documento"
+      operationId: "documentIdVersionGet"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Identificador del documento."
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Listado de versiones del documento"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Version"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Document"
+
+  /documents/{id}/activities:
+    get:
+      tags:
+      - "Documento"
+      summary: "Actividades"
+      description: "Lista de actividades asociadas al documento"
+      operationId: "documentIdActivityGet"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Identificador del documento."
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "Listado de actividades del documento"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Activity"
+        404:
+          description: "Recurso no encontrado"
+          schema:
+            $ref: "#/definitions/Error"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Document"
+
+
 definitions:
-  Hypermedia:
-    type: "object"
-    properties:
-      rel:
-        type: "string"
-        description: "Nombre del recurso con el que se relaciona"
-      href:
-        type: "string"
-        description: "URL de referencia al recurso"
-
-
   TOD:
     type: "object"
     properties:
@@ -195,7 +305,7 @@ definitions:
         description: "Identificador Unico."
       type:
         type: "string"
-        descripcion: "Define si es un tipo documental File o Folder"
+        description: "Define si es un tipo documental Document o Folder"
       label:
         type: "string"
         description: "Nombre completo del tipo de objeto documental."
@@ -216,7 +326,7 @@ definitions:
         description: "Listado de formato permitido de archivos adjuntos."
         items:
           type: "string"
-      properties:
+      schemas:
         type: array
         description: "Listado de metadatos del tipo de objeto documental."
         items:
@@ -247,42 +357,53 @@ definitions:
       id:
         type: "string"
         description: "Identificador Unico"
-      name:
+      title:
         type: "string"
-        description: "Nombre del documento completo (CUDAP)."
-      icon:
+        description: "Nombre único del documento (CUDAP)."
+      path:
         type: "string"
-        description: "url del icono"
+        description: "Lugar en el que se encuentra contenido el documento en caso de estar dentro de algun tipo Folder"
+      properties:
+        type: array
+        description: "Listado de metadatos del documento."
+        items:
+          type: "string"
       tod:
         type: object
         description: "Tipo de objeto documental al que referencia"
-        items:
-           $ref: "#/definitions/TOD"
+        $ref: "#/definitions/TOD"
+      version:
+        type: object
+        description: "Version del documento"
+        $ref: "#/definitions/Version"
+      activity:
+        type: object
+        description: "Eventos del documento"
+        $ref: "#/definitions/Activity"
       links:
         type: "array"
         description: "Listado de vínculos a recursos"
         items:
           $ref: "#/definitions/Hypermedia"
 
-
-Version:
-  type: "object"
-  properties:
-    id:
-      type: "string"
-      description: "Identificador Unico"
-    label:
-      type: "string"
-      description: "Etiqueta de número de version"
-    date:
-      type: "string"
-      description: "Fecha de creación de la version"
-    creator:
-      type: "string"
-      description: "Usuario creador de la version"
-    subject:
-      type: "string"
-      description: "Motivo por el que se creo la version"
+  Version:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Identificador Unico"
+      label:
+        type: "string"
+        description: "Etiqueta de número de version"
+      date:
+        type: "string"
+        description: "Fecha de creación de la version"
+      user:
+        type: "string"
+        description: "Usuario responsable del versionado"
+      subject:
+        type: "string"
+        description: "Motivo por el que se creo la version"
 
   Activity:
     type: "object"
@@ -303,6 +424,8 @@ Version:
         type: "string"
         description: "Usuario que realizó la acción."
 
+
+# ************* DEFINIONES GENERALES *************#
   Error:
     type: "object"
     properties:
@@ -313,3 +436,22 @@ Version:
         type: "string"
       fields:
         type: "string"
+
+  ReturnId:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      id:
+        type: "string"
+
+  Hypermedia:
+    type: "object"
+    properties:
+      rel:
+        type: "string"
+        description: "Nombre del recurso con el que se relaciona"
+      href:
+        type: "string"
+        description: "URL de referencia al recurso"

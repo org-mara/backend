@@ -2,14 +2,16 @@
   "name": "mara-api",
   "version": "0.0.1",
   "private": true,
-  "description": "New Swagger API Project",
+  "description": "Mara API Project",
   "keywords": [],
-  "author": "",
+  "author": "Romina Racca",
   "license": "",
   "main": "app.js",
   "dependencies": {
     "express": "^4.12.3",
-    "swagger-express-mw": "^0.1.0"
+    "fs-extra": "^0.26.7",
+    "swagger-express-mw": "^0.1.0",
+    "swagger-tools": "^0.9.13"
   },
   "devDependencies": {
     "should": "^7.1.0",
