@@ -55,7 +55,7 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-    x-swagger-router-controller: "TOD"
+    x-swagger-router-controller: "tod"
 
   /tods/{id}:
     get:
@@ -118,7 +118,7 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-    x-swagger-router-controller: "TOD"
+    x-swagger-router-controller: "tod"
 
 
    # ------------------ DOCUMENTOS ------------------
@@ -161,7 +161,7 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-    x-swagger-router-controller: "TOD"
+    x-swagger-router-controller: "document"
 
   /documents/{id}:
     get:
@@ -224,7 +224,7 @@ paths:
           schema:
             $ref: "#/definitions/Error"
 
-    x-swagger-router-controller: "Document"
+    x-swagger-router-controller: "document"
 
 
   /documents/{id}/versions:
@@ -259,7 +259,7 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Document"
+      x-swagger-router-controller: "document"
 
   /documents/{id}/activities:
     get:
@@ -293,7 +293,7 @@ paths:
           description: "Unexpected error"
           schema:
             $ref: "#/definitions/Error"
-      x-swagger-router-controller: "Document"
+      x-swagger-router-controller: "document"
 
 
 definitions:
