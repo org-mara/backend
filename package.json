@@ -11,6 +11,7 @@
     "express": "^4.12.3",
     "fs-extra": "^0.26.7",
     "request": "^2.70.0",
+    "request-promise": "^3.0.0",
     "swagger-express-mw": "^0.1.0",
     "swagger-tools": "^0.9.13"
   },

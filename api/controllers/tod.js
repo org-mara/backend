@@ -11,7 +11,10 @@ module.exports = {
 
 
 function todGet(req, res, next) {
-  console.log(cendra.prueba());
+  // var page = parseInt(req.query.page);
+  // var limit = parseInt(req.query.limit);
+
+  cendra.getSchema();
 
 }
 

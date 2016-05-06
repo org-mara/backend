@@ -15,7 +15,7 @@ produces:
 paths:
 
 
-  # ------------------ TIPOS DE OBJETOS DOCUMENTALES ------------------
+# ------------------ TIPOS DE OBJETOS DOCUMENTALES ------------------
   /tods:
     get:
       tags:
@@ -23,19 +23,19 @@ paths:
       summary: "Tipos de objetos documentales"
       description: "Listado de los tipos de objetos documentales"
       operationId: "todGet"
-      parameters:
-        - in: "query"
-          name: "page"
-          description: "Nro de página solicitada"
-          required: true
-          type: "number"
-          format: "int32"
-        - in: "query"
-          name: "pageSize"
-          description: "Tamaño de página deseado"
-          required: true
-          type: "number"
-          format: "int32"
+      parameters: []
+        # - in: "query"
+        #   name: "page"
+        #   description: "Nro de página solicitada"
+        #   required: true
+        #   type: "number"
+        #   format: "int32"
+        # - in: "query"
+        #   name: "pageSize"
+        #   description: "Tamaño de página deseado"
+        #   required: true
+        #   type: "number"
+        #   format: "int32"
       responses:
         200:
           description: "Listado de objetos documentales"
@@ -121,7 +121,8 @@ paths:
     x-swagger-router-controller: "tod"
 
 
-   # ------------------ DOCUMENTOS ------------------
+# ------------------ DOCUMENTOS ------------------
+
   /documents:
     get:
       tags:
@@ -225,7 +226,6 @@ paths:
             $ref: "#/definitions/Error"
 
     x-swagger-router-controller: "document"
-
 
   /documents/{id}/versions:
     get:
@@ -336,20 +336,20 @@ definitions:
         description: "Listado de tipos de objetos documentales que puede contener si es un Folder."
         items:
           type: "string"
-      view-url:
-        type: "string"
-        description: "Url de la vista de un tipo de objeto documental."
-      edit-url:
-        type: "string"
-        description: "Url de edición de datos de la instancia del tipo de objeto documental."
-      new-url:
-        type: "string"
-        description: "Url de creación de una instancia del tipo de objeto documental"
-      links:
-        type: "array"
-        description: "Listado de vínculos a recursos"
-        items:
-          $ref: "#/definitions/Hypermedia"
+      # view-url:
+      #   type: "string"
+      #   description: "Url de la vista de un tipo de objeto documental."
+      # edit-url:
+      #   type: "string"
+      #   description: "Url de edición de datos de la instancia del tipo de objeto documental."
+      # new-url:
+      #   type: "string"
+      #   description: "Url de creación de una instancia del tipo de objeto documental"
+      # links:
+      #   type: "array"
+      #   description: "Listado de vínculos a recursos"
+      #   items:
+      #     $ref: "#/definitions/Hypermedia"
 
   Document:
     type: "object"
