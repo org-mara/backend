@@ -23,13 +23,8 @@ function getSchema() {
     resolveWithFullResponse: true       //Trae todas las propiedades aparate del doby en el response
    };
 
-  rp(options)
-    .then(function (response) {
-      return response;
-    })
-    .catch(function (error) {
-      return error;
-    });
+   return rp(options);
+
 
   // var options = {
   //   url: 'http://cendraws-dev.unc.edu.ar/api/v1/schema',

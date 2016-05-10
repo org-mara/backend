@@ -43,8 +43,34 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/TOD"
-        404:
-          description: "Recurso no encontrado"
+        500:
+          description: "Error interno del servidor"
+          schema:
+            $ref: "#/definitions/Error"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+    post:
+      tags:
+      - "Tipo Documental"
+      summary: "Tipos de objetos documentales"
+      description: "Dar de alta un tipo de objeto documental"
+      operationId: "todPost"
+      parameters:
+        - in: "body"
+          name: "tod"
+          description: "Tipo de objeto documental"
+          required: true
+          schema:
+            $ref: "#/definitions/TOD"
+      responses:
+        201:
+          description: "Tipo de objeto documental creado"
+          schema:
+            $ref: "#/definitions/ReturnId"
+        400:
+          description: "Campos incorrectos"
           schema:
             $ref: "#/definitions/Error"
         500:
@@ -299,6 +325,9 @@ paths:
 definitions:
   TOD:
     type: "object"
+    required:
+      - label
+      - icon
     properties:
       id:
         type: "string"
@@ -314,9 +343,11 @@ definitions:
         description: "Identificador alfabetico del tipo de objeto documental utilizado para conformar el CUDAP."
       icon:
         type: "string"
+        # format: "byte"
         description: "Icono del tipo de objeto documental. Tamaño 16 px"
       large-icon:
         type: "string"
+        # format: "byte"
         description: "Icono del tipo de objeto documental. Tamaño 64 px"
       description:
         type: "string"
@@ -369,16 +400,16 @@ definitions:
         items:
           type: "string"
       tod:
-        type: object
-        description: "Tipo de objeto documental al que referencia"
+        # type: object
+        # description: "Tipo de objeto documental al que referencia"
         $ref: "#/definitions/TOD"
       version:
-        type: object
-        description: "Version del documento"
+        # type: object
+        # description: "Version del documento"
         $ref: "#/definitions/Version"
       activity:
-        type: object
-        description: "Eventos del documento"
+        # type: object
+        # description: "Eventos del documento"
         $ref: "#/definitions/Activity"
       links:
         type: "array"
